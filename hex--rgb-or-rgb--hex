@@ -1,0 +1,105 @@
+/*Question 3: Write a function that converts HEX to RGB. 
+Then Make that function auto-dect the formats so that if you enter 
+HEX color format it returns RGB and if you enter RGB color 
+format it returns HEX.*/
+
+let colorconvert = (value) => {
+	//debugger;
+	if(value.toString().includes("#")) {
+		let rgbval = hextorgb(value);
+		console.log(rgbval);
+		}
+	else {
+		let hexval = rgbtohex(value);
+		console.log(hexval);
+	}
+}
+function hextorgb(value) {
+	let withouthash = value.toString().split("#");
+	let hexvalue=withouthash[1].split('');
+	let rgbvalue=[];
+	let rgbval="0";
+	let hexval="0";
+	let returnval=""
+	if(hexvalue.length === 6)
+	{
+		for(let i=0;i<hexvalue.length;i+=2)
+		{
+
+			if((hexvalue[i].match('[G-Z]')) || (hexvalue[i+1].match('[g-z]')))
+			{
+			 returnval = `${hexvalue} need to be Alphanumeric with Alphabets - A-F, t `;
+			 return returnval;
+			}
+			let hexaval = hexvalue[i]+hexvalue[i+1];
+			rgbval = parseInt(hexaval,16);
+			if (rgbval <= 9)
+			{
+				rgbval="0"+rgbval;
+			}	
+			rgbvalue.push(rgbval);
+		}
+
+		returnval = `RGB value corresponding to HEX ${value} is RGB - rgb(${rgbvalue})`;
+	}
+	else {
+
+		returnval = `${hexvalue} is in unreadable format`;
+		}
+	return returnval;
+}
+
+function rgbtohex(value) {
+	let rgb = value.toString().split(",");
+    let returnval="";
+    let rgbval="";
+    let rgbvalue="";
+    let val="";
+    let val2=""
+    for(let i=0;i<rgb.length;i++)
+    {
+    	if(rgb[i]<=255 && rgb[i].length<=3)
+    	{
+    				//debugger;
+    				val1=rgb[i]%16;
+    				val2=(Math.floor(rgb[i]/16))%16;
+    				rgbval=`${switchcase(val2)}${switchcase(val1)}`;
+ 	   			
+ 	    }
+    	else 
+    	{
+    		returnval=`Values for R, G and B should be from 0 to 255 only!`;
+    		return returnval;
+    	}
+    	rgbvalue=rgbvalue+rgbval;
+    	returnval=`HEX value corresponding to RGB ${value} is #${rgbvalue}`;
+     
+	}
+	return returnval;
+	
+}
+
+
+
+function switchcase(val)
+{
+	switch(val) {
+		case 10: val="A"; break;
+		case 11: val="B";	break;
+		case 12: val="C";	break;
+		case 13: val="D";	break;
+		case 14: val="E";	break;
+		case 15: val="F";	break;
+		default: val; break;
+
+	}
+	return val;
+}
+
+	
+colorconvert("1,0,257");
+colorconvert("110,190,011");
+colorconvert("25,250,256");
+colorconvert("#45667WER");
+colorconvert("#FFFFFF");
+colorconvert("#45EFaa");
