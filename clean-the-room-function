@@ -1,0 +1,67 @@
+/*Question 1: Clean the room function: given an input of 
+[1,2,4,591,392,391,2,5,10,2,1,1,1,20,20], make a function that 
+organizes these into individual array that is ordered. 
+For example answer(ArrayFromAbove) 
+should return: [[1,1,1,1],[2,2,2], 4,5,10,[20,20], 391, 392,591]. 
+Bonus: Make it so it organizes strings differently from number types. i.e. 
+[1, "2", "3", 2] should return [[1,2], ["2", "3"]]
+*/
+
+let array=[1,"1",1,1,"2",1,1,"3",2,2,"4",,,,,2,2,2,3,12,32,312,3,123,123,123];
+function cleanup(arr) {
+	//debugger;
+	let dummyarray=[];
+	let newarr=[].concat(arr);
+	let newarray=[];
+	let uniquearr = unique(arr);
+	for(let i=0;i<uniquearr.length;i++)
+   {
+   	for(let j=0;j<=newarr.length;j++)
+	{ 
+		if((uniquearr[i] === newarr[j]) && (typeof(uniquearr[i])!="string"))
+		{
+ 			dummyarray.push(newarr[j]);
+
+ 		} else if((uniquearr[i] === newarr[j]) && (typeof(uniquearr[i])==="string"))
+ 		{
+ 			dummyarray.push(newarr[j]);
+ 		}
+
+ 	}
+ 		if(dummyarray.length===1)
+ 		{
+  				newarray.push(uniquearr[i]);
+ 				dummyarray=[];
+ 		}
+ 		else if (dummyarray.length>0)
+ 		{
+ 			newarray.push(dummyarray);
+ 	 		dummyarray=[];
+ 		}
+ }
+ 
+	 return newarray;
+}
+console.log(cleanup(array));
+
+
+let a=[1,2,3,4,1,2,4,2,1,3,4,1,1,23,4,2,1,4,2,21,1,3,342,3,1];
+function unique(arr) {
+	//debugger;
+	//let newarr=[].concat(arr);
+	for(let i=0;i<=arr.length;i++)
+   {
+   		for(let j=i+1;j<=arr.length;j++)
+	{ 
+		if(arr[i] === arr[j]) 
+		{
+			
+			delete(arr[j]);
+		
+		}
+
+	}
+}
+return arr.flat().sort((c,b) => c-b);
+}
+console.log(unique(a));
