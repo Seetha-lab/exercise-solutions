@@ -4,7 +4,6 @@ HEX color format it returns RGB and if you enter RGB color
 format it returns HEX.*/
 
 let colorconvert = (value) => {
-	//debugger;
 	if(value.toString().includes("#")) {
 		let rgbval = hextorgb(value);
 		console.log(rgbval);
